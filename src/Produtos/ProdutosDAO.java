@@ -28,11 +28,12 @@ public class ProdutosDAO {
     }
     
     public void cadastrarProduto (ProdutosDTO produto){
-        String sql = ("INSERT INTO produtos(nome, valor) VALUES (?, ?)");
+        String sql = ("INSERT INTO produtos(nome, valor, status) VALUES (?, ?, ?)");
         try{
             PreparedStatement prep = this.conn.prepareStatement(sql);
             prep.setString(1, produto.getNome());
             prep.setInt(2, produto.getValor());
+            prep.setString(3, produto.getStatus());
             prep.execute();
         }catch(Exception e){
             System.out.println("Erro ao inserir produto:\n" + e.getMessage());
