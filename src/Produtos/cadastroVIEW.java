@@ -4,6 +4,8 @@
  */
 package Produtos;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author jvna0
@@ -135,6 +137,7 @@ public class cadastroVIEW extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        try{
         ProdutosDTO produto = new ProdutosDTO();
         String nome = cadastroNome.getText();
         String valor = cadastroValor.getText();
@@ -145,7 +148,10 @@ public class cadastroVIEW extends javax.swing.JFrame {
         
         ProdutosDAO produtodao = new ProdutosDAO();
         produtodao.cadastrarProduto(produto);
-        
+        JOptionPane.showMessageDialog(null, "Cadastro realizado");
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Cadastro não realizado, verifique as credencias informadas");
+        }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosActionPerformed
