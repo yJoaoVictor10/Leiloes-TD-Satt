@@ -13,6 +13,7 @@ import java.sql.Connection;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ProdutosDAO {
@@ -62,8 +63,38 @@ public class ProdutosDAO {
         }
     }
     
+    public void venderProdutos(int id){
+        String sql = ("UPDATE produtos SET status = ? WHERE id = ?");
+        try{
+            PreparedStatement prep = this.conn.prepareStatement(sql);
+            prep.setString(1, "Vendido");
+            prep.setInt(2, id);
+            prep.execute();
+        }catch(Exception e){
+            System.out.println("Erro ao editar produto:\n" + e.getMessage());
+        }
+    }
     
-    
+    public List<ProdutosDTO> listarProdutosVendidos(){
+        String sql = ("SELECT * FROM produtos WHERE status LIKE ?");
+        try{
+            PreparedStatement prep = this.conn.prepareStatement(sql);
+            prep.setString(1, "%Vendido%");
+            ResultSet rs = prep.executeQuery();
+            List<ProdutosDTO> listaVendas = new ArrayList<>();
+            while(rs.next()){
+                ProdutosDTO produtos = new ProdutosDTO();
+                produtos.setId(rs.getInt("id"));
+                produtos.setNome(rs.getString("nome"));
+                produtos.setValor(rs.getInt("valor"));
+                produtos.setStatus(rs.getString("status"));
+                listaVendas.add(produtos);
+            }
+            return listaVendas;
+        }catch(Exception e){
+            return null;
+        }
+    }
         
 }
 
