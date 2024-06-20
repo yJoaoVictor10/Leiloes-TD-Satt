@@ -76,10 +76,10 @@ public class ProdutosDAO {
     }
     
     public List<ProdutosDTO> listarProdutosVendidos(){
-        String sql = ("SELECT FROM produtos WHERE status = ?");
+        String sql = ("SELECT * FROM produtos WHERE status LIKE ?");
         try{
             PreparedStatement prep = this.conn.prepareStatement(sql);
-            prep.setString(1, "Vendido");
+            prep.setString(1, "%Vendido%");
             ResultSet rs = prep.executeQuery();
             List<ProdutosDTO> listaVendas = new ArrayList<>();
             while(rs.next()){
